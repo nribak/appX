@@ -1,8 +1,9 @@
 import {insertUseCase} from "../use-cases";
 
-export default function vehicleJob(kind: string) {
+export default function vehicleJob(kind: string, frequency: number) {
+    console.log(frequency);
     setInterval( () => {
         const plate = Date.now().toString();
         insertUseCase({plate, color: 'red', kind});
-    }, 5000);
+    }, frequency * 1000);
 }

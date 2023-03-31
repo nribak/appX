@@ -2,6 +2,7 @@ import makeServer from "./server";
 import makeOrdersRouter from "./routers/vehicle-router";
 import vehicleJob from "./job";
 import createSockerServer from "./socket-server";
+import Settings from "./settings";
 
 const server = makeServer();
 const httpServer = createSockerServer(server);
@@ -11,9 +12,9 @@ server.use((req, res, next) => {
     next();
 })
 const router = makeOrdersRouter()
-const [kind, port] = process.argv.slice(2);
+
 server.use('/vehicles', router);
 
-httpServer.listen(parseInt(port), () => console.log('listening on port', port));
+httpServer.listen(Settings.port, () => console.log('listening on port', Settings.port));
 
-vehicleJob(kind);
+vehicleJob(Settings.kind, Settings.frequency);
